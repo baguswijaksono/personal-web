@@ -14,7 +14,6 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
     </title>
 
     <!-- TailwindCSS and Inter Font-->
-    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/tailwind.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -42,25 +41,15 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
 
           <div class="flex hidden md:block" id="navbar">
             <div class="flex flex-col md:flex-row mr-auto w-full">
-              <!-- don't show Home in menu for Homepage -->
               <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../">
                 Home
               </a>
-              <!-- dynamic menu based on navigation info in _config.yml -->
-
-              <!-- don't show current page in menu -->
               <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../about">
                 About
               </a>
-
-
-              <!-- don't show current page in menu -->
               <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../docs">
                 Docs
               </a>
-
-
-              <!-- don't show current page in menu -->
               <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../blog">
                 Blog
               </a>
@@ -68,8 +57,6 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
               <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../tag">
                 Tag
               </a>
-
-
             </div>
           </div>
         </div>
@@ -90,22 +77,24 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
             JOIN tags t ON dt.tag_id = t.id AND t.tag_name = '$tag'
             GROUP BY d.project";
 
-        // Execute the query for documents
         $resultDocs = $conn->query($sqlDocs);
 
         if ($resultDocs) {
-          // Fetch the results as associative array
           ?>
           <h3>Docs</h3>
           <ul>
-          <?php
-          while ($row = $resultDocs->fetch_assoc()) {
-            ?> <li><a href="../docs/<?php echo $row['Doc Project']; ?>"><?php echo $row['Doc Project']; ?></a></li>  <?php
-          }
-          ?>
+            <?php
+            while ($row = $resultDocs->fetch_assoc()) {
+              ?>
+              <li><a href="../docs/<?php echo $row['Doc Project']; ?>">
+                  <?php echo $row['Doc Project']; ?>
+                </a></li>
+              <?php
+            }
+            ?>
           </ul>
           <?php
-        } 
+        }
 
         $sqlBlogs = "SELECT b.topic AS 'Blog Topic'
              FROM blogs b
@@ -113,35 +102,25 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
              JOIN tags t ON bt.tag_id = t.id AND t.tag_name = '$tag'
              GROUP BY b.topic";
 
-        // Execute the query for blogs
         $resultBlogs = $conn->query($sqlBlogs);
 
         if ($resultBlogs) {
-          // Fetch the results as associative array
-
           ?>
           <h3>Blogs</h3>
           <ul>
-          <?php
-          while ($row = $resultBlogs->fetch_assoc()) {
-            ?> <li><a href="../blog/<?php echo $row['Blog Topic']; ?>"><?php echo $row['Blog Topic']; ?></a></li>  <?php
-          }
-          ?>
+            <?php
+            while ($row = $resultBlogs->fetch_assoc()) {
+              ?>
+              <li><a href="../blog/<?php echo $row['Blog Topic']; ?>">
+                  <?php echo $row['Blog Topic']; ?>
+                </a></li>
+              <?php
+            }
+            ?>
           </ul>
           <?php
-
-
-        } else {
-          // Handle query execution error
-          echo "Error: " . $conn->error;
         }
-
-
         ?>
-
-
-
-
       </div>
 
 
@@ -149,21 +128,10 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
   </body>
 
   <script>
-    /* Funtion for getting the current year in the footer */
-    (function () {
-      if (document.getElementById("get-current-year")) {
-        document.getElementById(
-          "get-current-year"
-        ).innerHTML = new Date().getFullYear();
-      }
-    })();
-
-    /* Function for opning navbar on mobile */
     function toggleNavbar(collapseID) {
       document.getElementById(collapseID).classList.toggle("hidden");
       document.getElementById(collapseID).classList.toggle("block");
     }
-    /* Function for dropdowns */
     function openDropdown(event, dropdownID) {
       let element = event.target;
       while (element.nodeName !== "A") {
@@ -173,16 +141,6 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
       document.getElementById(dropdownID).classList.toggle("block");
     }
 
-    /* Function for show/hide table of content */
-    function toggleTOC() {
-      var toc = document.getElementById('toc');
-      if (toc.style.display == "block") { // if toc hidden, display it 
-        toc.style.display = "none";
-      }
-      else { // if toc displayed, hidden it
-        toc.style.display = "block";
-      }
-    }
   </script>
 
   </html>

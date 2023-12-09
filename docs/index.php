@@ -2,11 +2,7 @@
 include('../dbconfig.php');
 if (isset($_GET['project']) && !empty($_GET['project'])) {
     $project = $_GET['project'];
-    $sql = "SELECT * FROM docs WHERE project = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $project);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    getDocs($conn,$project)
     ?>
     <!DOCTYPE html>
     <html lang=" en-US">
@@ -121,14 +117,8 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
         ?>
                 </div>
                 <?php
-                $project2 = $_GET['project'];
-                $sql2 = "SELECT * FROM docs WHERE project = ?";
-                $stmt2 = mysqli_prepare($conn, $sql2);
-                mysqli_stmt_bind_param($stmt2, "s", $project2);
-                mysqli_stmt_execute($stmt2);
-                $result2 = mysqli_stmt_get_result($stmt2);
 
-
+                $result2 = getDocs($conn,$project);
                 if (mysqli_num_rows($result2) > 0) {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
                         echo $row2["hypertext"];

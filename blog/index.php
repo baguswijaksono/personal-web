@@ -128,7 +128,6 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
                 mysqli_stmt_execute($stmt2);
                 $result2 = mysqli_stmt_get_result($stmt2);
 
-
                 if (mysqli_num_rows($result2) > 0) {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
                         echo $row2["hypertext"];
@@ -162,5 +161,4 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
 } else {
     include('bloglist.php');
 }
-mysqli_close($conn);
 ?>

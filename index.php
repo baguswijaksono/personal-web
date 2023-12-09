@@ -4,10 +4,9 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <title>Bagus Wijaksono</title>
+  <title>Bagus Muhammad Wijaksono</title>
 
   <!-- TailwindCSS and Inter Font-->
-  <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/tailwind.css">
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -37,27 +36,18 @@
 
         <div class="flex hidden md:block" id="navbar">
             <div class="flex flex-col md:flex-row mr-auto w-full">
-                
-
-                <!-- dynamic menu based on navigation info in _config.yml -->
-                     <!-- don't show current page in menu -->
                     <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase"
                         href="about">
                         About
                     </a>
-                    
-                     <!-- don't show current page in menu -->
                     <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase"
                         href="docs">
                         Docs
                     </a>
-                    
-                     <!-- don't show current page in menu -->
                     <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase"
                         href="blog">
                         Blogs
                     </a>
-
                     <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase"
                         href="tag">
                         Tag
@@ -102,8 +92,6 @@
           </button>
         </a>
         
-
-        
         <a href="https://github.com/baguswijaksono" target="_blank">
           <button
             class="bg-white text-blueGray-800 font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
@@ -146,16 +134,6 @@
       document.getElementById(dropdownID).classList.toggle("block");
     }
 
-  /* Function for show/hide table of content */
-  function toggleTOC() {
-    var toc = document.getElementById('toc');
-        if (toc.style.display == "block"){ // if toc hidden, display it 
-            toc.style.display = "none";
-        }
-        else{ // if toc displayed, hidden it
-            toc.style.display = "block";
-        }
-    }
 </script>
 
 </html>

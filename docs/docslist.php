@@ -62,7 +62,6 @@
             <h1 class="text-center mt-6 mb-6">DOCS</h1>
             <div>
                 <?php
-                include('../dbconfig.php');
                 $sql = "SELECT * FROM docs";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
