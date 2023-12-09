@@ -7,7 +7,6 @@
   <title>Tag</title>
 
   <!-- TailwindCSS and Inter Font-->
-  <link rel="stylesheet" href="../assets/css/main.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -39,26 +38,15 @@
             <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../">
               Home
             </a>
-            <!-- dynamic menu based on navigation info in _config.yml -->
-
-            <!-- don't show current page in menu -->
             <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../about">
               About
             </a>
-
-
-            <!-- don't show current page in menu -->
             <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../docs">
               Docs
             </a>
-
-
-            <!-- don't show current page in menu -->
             <a class="text-sm text-gray-500 hover:text-gray-900 px-3 py-2 lg:py-1 mx-auto uppercase" href="../blog">
               Blog
             </a>
-
-
           </div>
         </div>
       </div>
@@ -69,56 +57,35 @@
       <h1 class="text-center mt-6 mb-6">Tags</h1>
 
       <?php
-      include('../dbconfig.php');
-      $sql = "SELECT * FROM tags";
-      $result = $conn->query($sql);
-
-      // Check if there are any rows returned from the query
+      $result = getAllTags($conn);
       if ($result->num_rows > 0) {
-        // Output data of each row
         while ($row = $result->fetch_assoc()) {
-          // Access specific columns from the row
-          $tagName = $row["tag_name"]; // Replace 'tag_name' with your actual column name
-      
-          // Print the tag information within the HTML structure
-          ?> 
-          <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-          <a class="!no-underline" href="<?php echo $tagName; ?>"><?php echo $tagName; ?></a>
+          $tagName = $row["tag_name"];
+          ?>
+          <div
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+            <a class="!no-underline" href="<?php echo $tagName; ?>">
+              <?php echo $tagName; ?>
+            </a>
           </div>
           <?php
         }
-      } else {
-        echo "0 results";
       }
 
-      // Close the database connection
       $conn->close();
 
       ?>
-
-
     </div>
-
-
   </div>
 </body>
 
 <script>
-  /* Funtion for getting the current year in the footer */
-  (function () {
-    if (document.getElementById("get-current-year")) {
-      document.getElementById(
-        "get-current-year"
-      ).innerHTML = new Date().getFullYear();
-    }
-  })();
 
-  /* Function for opning navbar on mobile */
   function toggleNavbar(collapseID) {
     document.getElementById(collapseID).classList.toggle("hidden");
     document.getElementById(collapseID).classList.toggle("block");
   }
-  /* Function for dropdowns */
+
   function openDropdown(event, dropdownID) {
     let element = event.target;
     while (element.nodeName !== "A") {
@@ -128,16 +95,6 @@
     document.getElementById(dropdownID).classList.toggle("block");
   }
 
-  /* Function for show/hide table of content */
-  function toggleTOC() {
-    var toc = document.getElementById('toc');
-    if (toc.style.display == "block") { // if toc hidden, display it 
-      toc.style.display = "none";
-    }
-    else { // if toc displayed, hidden it
-      toc.style.display = "block";
-    }
-  }
 </script>
 
 </html>

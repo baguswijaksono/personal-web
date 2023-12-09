@@ -85,12 +85,10 @@
 </body>
 
 <script>
-  /* Function for opning navbar on mobile */
   function toggleNavbar(collapseID) {
     document.getElementById(collapseID).classList.toggle("hidden");
     document.getElementById(collapseID).classList.toggle("block");
   }
-  /* Function for dropdowns */
   function openDropdown(event, dropdownID) {
     let element = event.target;
     while (element.nodeName !== "A") {

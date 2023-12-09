@@ -2,27 +2,24 @@
 include('../dbconfig.php');
 if (isset($_GET['project']) && !empty($_GET['project'])) {
     $project = $_GET['project'];
-    getDocs($conn,$project)
-    ?>
+    $result = getDocs($conn, $project)
+        ?>
     <!DOCTYPE html>
     <html lang=" en-US">
 
     <head>
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <?php
 
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-
                 ?>
                 <title>
                     <?php echo $row["docname"]; ?>
                 </title>
 
                 <!-- TailwindCSS and Inter Font-->
-                <link rel="stylesheet" href="../assets/css/main.css">
                 <link rel="stylesheet" href="../assets/css/tailwind.css">
                 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -88,20 +85,11 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
                         </h1>
                         <div class="text-center">
                             <?php
-
                             $blog_id = $row["id"];
             }
         }
-        $sql_get_tags = "SELECT tags.tag_name
-                FROM tags
-                INNER JOIN blog_tags ON tags.id = blog_tags.tag_id
-                WHERE blog_tags.blog_id = ?";
 
-        $stmt = $conn->prepare($sql_get_tags);
-        $stmt->bind_param('i', $blog_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
+        $result = getTags($conn, $blog_id);
         if ($result->num_rows > 0) {
             while ($tag = $result->fetch_assoc()) {
                 ?>
@@ -118,7 +106,7 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
                 </div>
                 <?php
 
-                $result2 = getDocs($conn,$project);
+                $result2 = getDocs($conn, $project);
                 if (mysqli_num_rows($result2) > 0) {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
                         echo $row2["hypertext"];
@@ -148,7 +136,6 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
 
     </html>
     <?php
-    mysqli_stmt_close($stmt);
 } else {
     include('docslist.php');
 }

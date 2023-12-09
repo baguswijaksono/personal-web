@@ -2,11 +2,7 @@
 include('../dbconfig.php');
 if (isset($_GET['topic']) && !empty($_GET['topic'])) {
     $topic = $_GET['topic'];
-    $sql = "SELECT * FROM blogs WHERE topic = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $topic);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $result = getBlogs($conn, $topic);
     ?>
     <!DOCTYPE html>
     <html lang=" en-US">
@@ -96,18 +92,10 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
                             $blog_id = $row["id"];
             }
         }
-        $sql_get_tags = "SELECT tags.tag_name
-                FROM tags
-                INNER JOIN blog_tags ON tags.id = blog_tags.tag_id
-                WHERE blog_tags.blog_id = ?";
+        $getTagresult = getTags($conn, $blog_id);
 
-        $stmt = $conn->prepare($sql_get_tags);
-        $stmt->bind_param('i', $blog_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            while ($tag = $result->fetch_assoc()) {
+        if ($getTagresult->num_rows > 0) {
+            while ($tag = $getTagresult->fetch_assoc()) {
                 ?>
                             <div
                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
@@ -121,12 +109,9 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
         ?>
                 </div>
                 <?php
-                $topic2 = $_GET['topic'];
-                $sql2 = "SELECT * FROM blogs WHERE topic = ?";
-                $stmt2 = mysqli_prepare($conn, $sql2);
-                mysqli_stmt_bind_param($stmt2, "s", $topic2);
-                mysqli_stmt_execute($stmt2);
-                $result2 = mysqli_stmt_get_result($stmt2);
+
+
+                $result2 = getBlogs($conn, $_GET['topic']);
 
                 if (mysqli_num_rows($result2) > 0) {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -157,7 +142,6 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
 
     </html>
     <?php
-    mysqli_stmt_close($stmt);
 } else {
     include('bloglist.php');
 }

@@ -7,7 +7,6 @@
     <title>Docs</title>
 
     <!-- TailwindCSS and Inter Font-->
-    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/tailwind.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -59,11 +58,10 @@
 
 
         <div class="px-4 pt-4 prose prose-indigo">
-            <h1 class="text-center mt-6 mb-6">DOCS</h1>
+            <h1 class="text-center mt-6 mb-6">Docs</h1>
             <div>
                 <?php
-                $sql = "SELECT * FROM docs";
-                $result = mysqli_query($conn, $sql);
+                $result = getAllDocs($conn);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $docId = $row['id'];

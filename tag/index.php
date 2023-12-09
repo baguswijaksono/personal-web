@@ -68,7 +68,6 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
         </h1>
 
         <?php
-        include('../dbconfig.php');
         $tag = $_GET['tag'];
 
         $sqlDocs = "SELECT d.project AS 'Doc Project'

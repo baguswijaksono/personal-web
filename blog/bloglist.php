@@ -7,7 +7,6 @@
     <title>Blogs</title>
 
     <!-- TailwindCSS and Inter Font-->
-    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/tailwind.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -63,7 +62,6 @@
             <h1 class="text-center mt-6 mb-6">Blog</h1>
             <div>
                 <?php
-                include('../dbconfig.php');
                 $sql = "SELECT * FROM blogs";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
@@ -110,15 +108,6 @@
         }
         document.getElementById(dropdownID).classList.toggle("hidden");
         document.getElementById(dropdownID).classList.toggle("block");
-    }
-    function toggleTOC() {
-        var toc = document.getElementById('toc');
-        if (toc.style.display == "block") {
-            toc.style.display = "none";
-        }
-        else {
-            toc.style.display = "block";
-        }
     }
 </script>
 
