@@ -10,6 +10,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+$first_hashed_password = '$2y$10$2lbso9yyLzBf1sy1BJKrb.AarVssogFHWqeGR.fonNHrOrlXWLLlq'; 
+$second_hashed_password = '$2y$10$2lbso9yyLzBf1sy1BJKrb.AarVssogFHWqeGR.fonNHrOrlXWLLlq'; 
+$third_hashed_password = '$2y$10$2lbso9yyLzBf1sy1BJKrb.AarVssogFHWqeGR.fonNHrOrlXWLLlq'; 
+$fourth_hashed_password = '$2y$10$2lbso9yyLzBf1sy1BJKrb.AarVssogFHWqeGR.fonNHrOrlXWLLlq'; 
+
 function getDocs($conn, $project)
 {
     $sql = "SELECT * FROM docs WHERE project = ?";
