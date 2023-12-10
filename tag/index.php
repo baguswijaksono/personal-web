@@ -70,58 +70,88 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
         <?php
         $tag = $_GET['tag'];
 
-        $sqlDocs = "SELECT d.project AS 'Doc Project'
-            FROM docs d
-            JOIN doc_tags dt ON d.id = dt.doc_id
-            JOIN tags t ON dt.tag_id = t.id AND t.tag_name = '$tag'
-            GROUP BY d.project";
+        $sqlDocs = "SELECT d.project, d.shortdesc, d.created_at
+        FROM docs d
+        JOIN doc_tags dt ON d.id = dt.doc_id
+        JOIN tags t ON dt.tag_id = t.id
+        WHERE t.tag_name = '$tag'
+        GROUP BY d.project, d.shortdesc, d.created_at;
+        ";
 
         $resultDocs = $conn->query($sqlDocs);
 
         if ($resultDocs) {
           ?>
-          <h3>Docs</h3>
-          <ul>
-            <?php
-            while ($row = $resultDocs->fetch_assoc()) {
-              ?>
-              <li><a href="../docs/<?php echo $row['Doc Project']; ?>">
-                  <?php echo $row['Doc Project']; ?>
-                </a></li>
-              <?php
-            }
+          <?php
+          while ($row = $resultDocs->fetch_assoc()) {
             ?>
-          </ul>
+            <div class="pt-3.5">
+              <a class="!no-underline" href="<?php echo $row['project'] ?>">
+                <h3 class="text-sm text-gray-700">
+                  <?php echo $row['project']; ?>
+                  <div
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    docs
+                  </div>
+                </h3>
+              </a>
+              <p class="max-w-[40ch] text-xs text-gray-500">
+                <?php echo $row['shortdesc']; ?> <br> <br> <small class="text-gray-400">
+                  <?php
+                  $dateTime = new DateTime($row['created_at']);
+                  $formattedDate = $dateTime->format('F j, Y');
+                  echo $formattedDate; ?>
+                </small>
+              </p>
+            </div>
+            <?php
+          }
+          ?>
           <?php
         }
 
-        $sqlBlogs = "SELECT b.topic AS 'Blog Topic'
-             FROM blogs b
-             JOIN blog_tags bt ON b.id = bt.blog_id
-             JOIN tags t ON bt.tag_id = t.id AND t.tag_name = '$tag'
-             GROUP BY b.topic";
+        $sqlBlogs = "SELECT b.topic, b.shortdesc, b.created_at
+        FROM blogs b
+        JOIN blog_tags bt ON b.id = bt.blog_id
+        JOIN tags t ON bt.tag_id = t.id
+        WHERE t.tag_name = '$tag'
+        GROUP BY b.topic, b.shortdesc, b.created_at
+        ";
 
         $resultBlogs = $conn->query($sqlBlogs);
 
+
         if ($resultBlogs) {
           ?>
-          <h3>Blogs</h3>
-          <ul>
-            <?php
-            while ($row = $resultBlogs->fetch_assoc()) {
-              ?>
-              <li><a href="../blog/<?php echo $row['Blog Topic']; ?>">
-                  <?php echo $row['Blog Topic']; ?>
-                </a></li>
-              <?php
-            }
+          <?php
+          while ($row = $resultBlogs->fetch_assoc()) {
             ?>
-          </ul>
+            <div class="pt-3.5">
+              <a class="!no-underline" href="<?php echo $row['topic'] ?>">
+                <h3 class="text-sm text-gray-700">
+                  <?php echo $row['topic']; ?>
+                  <div
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    blog
+                  </div>
+                </h3>
+              </a>
+              <p class="max-w-[40ch] text-xs text-gray-500">
+                <?php echo $row['shortdesc']; ?> <br> <br> <small class="text-gray-400">
+                  <?php
+                  $dateTime = new DateTime($row['created_at']);
+                  $formattedDate = $dateTime->format('F j, Y');
+                  echo $formattedDate; ?>
+                </small>
+              </p>
+            </div>
+            <?php
+          }
+          ?>
           <?php
         }
         ?>
       </div>
-
 
     </div>
   </body>

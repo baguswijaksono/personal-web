@@ -72,9 +72,13 @@
 
                         ?>
                         <div class="pt-3.5">
-                            <a href="<?php echo $project ?>">
+                            <a class="!no-underline" href="<?php echo $project ?>">
                                 <h3 class="text-sm text-gray-700">
                                     <?php echo $project; ?>
+                                    <div
+                                        class="inline-flex items-center px-2.5 py-0.25 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                        245 views
+                                    </div>
                                 </h3>
                             </a>
                             <p class="max-w-[40ch] text-xs text-gray-500">
