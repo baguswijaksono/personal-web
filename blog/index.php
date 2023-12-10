@@ -3,7 +3,8 @@ include('../dbconfig.php');
 if (isset($_GET['topic']) && !empty($_GET['topic'])) {
     $topic = $_GET['topic'];
     $result = getBlogs($conn, $topic);
-    ?>
+    incrementViews($conn, 'blog', 1)
+        ?>
     <!DOCTYPE html>
     <html lang=" en-US">
 
@@ -90,6 +91,7 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
                             <?php
 
                             $blog_id = $row["id"];
+                            incrementViews($conn, $blog_id, 'blog');
             }
         }
         $getTagresult = getTags($conn, $blog_id);
@@ -109,8 +111,6 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
         ?>
                 </div>
                 <?php
-
-
                 $result2 = getBlogs($conn, $_GET['topic']);
 
                 if (mysqli_num_rows($result2) > 0) {

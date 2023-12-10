@@ -77,7 +77,7 @@
                                     <?php echo $project; ?>
                                     <div
                                         class="inline-flex items-center px-2.5 py-0.25 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                        245 views
+                                        <?php echo getViews($conn, $docId, 'doc') ?> Views
                                     </div>
                                 </h3>
                             </a>
@@ -110,15 +110,6 @@
         }
         document.getElementById(dropdownID).classList.toggle("hidden");
         document.getElementById(dropdownID).classList.toggle("block");
-    }
-    function toggleTOC() {
-        var toc = document.getElementById('toc');
-        if (toc.style.display == "block") {
-            toc.style.display = "none";
-        }
-        else {
-            toc.style.display = "block";
-        }
     }
 </script>
 

@@ -63,8 +63,25 @@ try {
     )";
 
     $conn->exec($sql_blog_tags);
+
+    $sql_views = "CREATE TABLE views (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        content_id INT(6) UNSIGNED,
+        content_type ENUM('blog', 'doc') NOT NULL,
+        views_count INT(6) UNSIGNED DEFAULT 0,
+        CONSTRAINT fk_blog_content FOREIGN KEY (content_id) 
+            REFERENCES blogs(id) 
+            ON DELETE CASCADE,
+        CONSTRAINT fk_doc_content FOREIGN KEY (content_id) 
+            REFERENCES docs(id) 
+            ON DELETE CASCADE
+    );
+    ";
+
+    $conn->exec($sql_views);
+
     echo "Table 'blog_tags' created successfully<br>";
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 

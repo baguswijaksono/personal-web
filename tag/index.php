@@ -86,7 +86,7 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
           while ($row = $resultDocs->fetch_assoc()) {
             ?>
             <div class="pt-3.5">
-              <a class="!no-underline" href="<?php echo $row['project'] ?>">
+              <a class="!no-underline" href="../docs/<?php echo $row['project'] ?>">
                 <h3 class="text-sm text-gray-700">
                   <?php echo $row['project']; ?>
                   <div
@@ -117,17 +117,14 @@ if (isset($_GET['tag']) && !empty($_GET['tag'])) {
         WHERE t.tag_name = '$tag'
         GROUP BY b.topic, b.shortdesc, b.created_at
         ";
-
         $resultBlogs = $conn->query($sqlBlogs);
-
-
         if ($resultBlogs) {
           ?>
           <?php
           while ($row = $resultBlogs->fetch_assoc()) {
             ?>
             <div class="pt-3.5">
-              <a class="!no-underline" href="<?php echo $row['topic'] ?>">
+              <a class="!no-underline" href="../blog/<?php echo $row['topic'] ?>">
                 <h3 class="text-sm text-gray-700">
                   <?php echo $row['topic']; ?>
                   <div

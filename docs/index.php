@@ -85,11 +85,12 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
                         </h1>
                         <div class="text-center">
                             <?php
-                            $blog_id = $row["id"];
+                            $docs_id = $row["id"];
+                            incrementViews($conn, $docs_id, 'doc');
             }
         }
 
-        $result = getTags($conn, $blog_id);
+        $result = getTags($conn, $docs_id);
         if ($result->num_rows > 0) {
             while ($tag = $result->fetch_assoc()) {
                 ?>

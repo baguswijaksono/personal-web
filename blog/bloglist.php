@@ -66,7 +66,7 @@
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $docId = $row['id'];
+                        $blog_id = $row['id'];
                         $topic = $row['topic'];
                         $createdAt = $row['created_at'];
                         $dateTime = new DateTime($createdAt);
@@ -79,7 +79,7 @@
                                     <?php echo $topic; ?>
                                     <div
                                         class="inline-flex items-center px-2.5 py-0.25 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                        245 views
+                                         <?php echo getViews($conn, $blog_id, 'blog') ?> Views
                                     </div>
                                 </h3>
                             </a>
