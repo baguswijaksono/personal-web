@@ -13,6 +13,7 @@ try {
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         project VARCHAR(255) NOT NULL,
         docname VARCHAR(255),
+        hypertext title,
         hypertext LONGTEXT,
         shortdesc VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -26,6 +27,7 @@ try {
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         topic VARCHAR(255) NOT NULL,
         docname VARCHAR(255),
+        hypertext title,
         hypertext LONGTEXT,
         shortdesc VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -68,13 +70,7 @@ try {
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         content_id INT(6) UNSIGNED,
         content_type ENUM('blog', 'doc') NOT NULL,
-        views_count INT(6) UNSIGNED DEFAULT 0,
-        CONSTRAINT fk_blog_content FOREIGN KEY (content_id) 
-            REFERENCES blogs(id) 
-            ON DELETE CASCADE,
-        CONSTRAINT fk_doc_content FOREIGN KEY (content_id) 
-            REFERENCES docs(id) 
-            ON DELETE CASCADE
+        views_count INT(6) UNSIGNED DEFAULT 0
     );
     ";
 
