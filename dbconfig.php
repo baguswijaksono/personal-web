@@ -17,6 +17,22 @@ $fourth_hashed_password = '$2y$10$2lbso9yyLzBf1sy1BJKrb.AarVssogFHWqeGR.fonNHrOr
 
 $waitTime = 5;
 
+function getAboutData($conn) {
+    $query = "SELECT * FROM about WHERE id = 1";
+    $result = $conn->query($query);
+
+    if ($result) {
+        $data = array();
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        $result->free(); 
+        return $data;
+    } else {
+        return null;
+    }
+}
+
 function getDocs($conn, $project)
 {
     $sql = "SELECT * FROM docs WHERE project = ?";

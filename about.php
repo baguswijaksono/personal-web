@@ -58,22 +58,17 @@
     <div class="px-4 pt-4 prose prose-indigo">
       <h1 class="text-center mt-6 mb-6">About</h1>
 
-      <p>
-        I specialize in crafting the foundational elements that power applications. I design APIs, manage databases, and
-        ensure communication between different parts of the software is secure, scalable, and optimized user
-        experiences. you can see more about me on my <a class="!no-underline" href="">cv</a>.
-        <br>
-        <br>
-        I like to turn bugs into 'undocumented features.' When I'm not debugging, also sometime im trying to teach
-        random cat on street how to fetch a git branch.
-        <br>
-        <br>
-        You can see what project i bould during my time as backend developer on <a class="!no-underline"
-          href="docs">docs</a> or if you have
-        to much time and dont know what to do, you can see my <a class="!no-underline" href="blog">blog</a> post.
-      </p>
+      <?php
+  include('dbconfig.php');
+$aboutData = getAboutData($conn);
+if ($aboutData !== null) {
+    foreach ($aboutData as $row) {
+    
+ echo $row['hypertextabout'];
 
-
+    }
+} 
+?>
     </div>
 
   </div>

@@ -81,6 +81,31 @@ try {
     $conn->exec($sql_views);
 
     echo "Table 'blog_tags' created successfully<br>";
+
+    // Create 'about' table
+    $sql_about = "CREATE TABLE IF NOT EXISTS about (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        name LONGTEXT,
+        hypertexthome LONGTEXT,
+        hypertextabout LONGTEXT
+    )";
+    
+    $conn->exec($sql_about);
+    echo "Table 'about' created successfully<br>";
+    
+    // Ensure only one row exists in 'about' table
+    $check_about = "SELECT COUNT(*) as count FROM about";
+    $stmt = $conn->query($check_about);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($row['count'] === '0') {
+        $insert_about = "INSERT INTO about (name, hypertexthome, hypertextabout) VALUES ('Sample Name', 'Your home text goes here', 'Your about text goes here')";
+        $conn->exec($insert_about);
+        echo "One row inserted into 'about' table<br>";
+    } else {
+        echo "Table 'about' already contains a row<br>";
+    }
+    
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }

@@ -57,18 +57,28 @@
     </div>
 </nav>
 
-
+<?php
+  include('dbconfig.php');
+$aboutData = getAboutData($conn);
+if ($aboutData !== null) {
+    foreach ($aboutData as $row) {
+        ?>
 <div class="mx-auto text-center prose prose-indigo">
   <div>
     <img class="object-cover mx-auto h-36 w-36 rounded-full" src="https://static.miraheze.org/bluearchivewiki/c/c2/Hoshino_%28Swimsuit%29.png?version=25af5c07790b064540722a394002a255"
       alt="author profile image">
-    <h1>Bagus Wijaksono</h1>
+    <h1><?php echo $row['name']?></h1>
   </div>
   
-  <p class="text-gray-500 pb-4">Software Engineer with over 3 years of experience specializing in backend. Additionally, interested in cybersecurity.</p>
-  
+  <p class="text-gray-500 pb-4"><?php echo $row['hypertexthome']?></p>
+
 </div>
 </div>
+
+<?php
+    }
+} 
+?>
 
 <section>
   <div class="flex flex-wrap text-center">
