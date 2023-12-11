@@ -4,7 +4,13 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <title>Bagus Muhammad Wijaksono</title>
+  <?php
+  include('dbconfig.php');
+$aboutData = getAboutData($conn);
+if ($aboutData !== null) {
+    foreach ($aboutData as $row) {
+        ?>
+  <title><?php echo $row['name']?></title>
 
   <!-- TailwindCSS and Inter Font-->
   <link rel="stylesheet" href="assets/css/tailwind.css">
@@ -57,12 +63,7 @@
     </div>
 </nav>
 
-<?php
-  include('dbconfig.php');
-$aboutData = getAboutData($conn);
-if ($aboutData !== null) {
-    foreach ($aboutData as $row) {
-        ?>
+
 <div class="mx-auto text-center prose prose-indigo">
   <div>
     <img class="object-cover mx-auto h-36 w-36 rounded-full" src="https://static.miraheze.org/bluearchivewiki/c/c2/Hoshino_%28Swimsuit%29.png?version=25af5c07790b064540722a394002a255"
