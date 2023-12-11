@@ -81,6 +81,20 @@ function getTags($conn, $blog_id)
     return $result;
 }
 
+function getdocsTags($conn, $docs_id)
+{
+    $sql_get_tags = "SELECT tags.tag_name
+    FROM tags
+    INNER JOIN doc_tags ON tags.id = doc_tags.tag_id
+    WHERE doc_tags.doc_id = ?";
+
+    $stmt = $conn->prepare($sql_get_tags);
+    $stmt->bind_param('i', $docs_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
+}
+
 function getViews($conn, $content_id, $content_type)
 {
     $sql = "SELECT views_count

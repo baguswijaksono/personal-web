@@ -90,7 +90,7 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
             }
         }
 
-        $result = getTags($conn, $docs_id);
+        $result = getdocsTags($conn, $docs_id);
         if ($result->num_rows > 0) {
             while ($tag = $result->fetch_assoc()) {
                 ?>

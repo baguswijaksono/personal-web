@@ -66,7 +66,7 @@ if ($aboutData !== null) {
 
 <div class="mx-auto text-center prose prose-indigo">
   <div>
-    <img class="object-cover mx-auto h-36 w-36 rounded-full" src="https://static.miraheze.org/bluearchivewiki/c/c2/Hoshino_%28Swimsuit%29.png?version=25af5c07790b064540722a394002a255"
+    <img class="object-cover mx-auto h-36 w-36 rounded-full" src="assets\img\pfp.jpg"
       alt="author profile image">
     <h1><?php echo $row['name']?></h1>
   </div>
