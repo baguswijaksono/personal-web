@@ -3,21 +3,17 @@ include('../dbconfig.php');
 if (isset($_GET['topic']) && !empty($_GET['topic'])) {
     $topic = $_GET['topic'];
     $result = getBlogs($conn, $topic);
-    incrementViews($conn, 'blog', 1)
-        ?>
-    <!DOCTYPE html>
-    <html lang=" en-US">
+    incrementViews($conn, 'blog', 1);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <!DOCTYPE html>
+            <html lang=" en-US">
 
-    <head>
+            <head>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <?php
-
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-
-                ?>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta charset="utf-8">
                 <title>
                     <?php echo $row["docname"]; ?>
                 </title>
@@ -92,56 +88,61 @@ if (isset($_GET['topic']) && !empty($_GET['topic'])) {
 
                             $blog_id = $row["id"];
                             incrementViews($conn, $blog_id, 'blog');
-            }
+
         }
         $getTagresult = getTags($conn, $blog_id);
 
         if ($getTagresult->num_rows > 0) {
             while ($tag = $getTagresult->fetch_assoc()) {
                 ?>
-                            <div
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                <a class="!no-underline" href="../tag/<?php echo $tag['tag_name']; ?>">
-                                    <?php echo $tag['tag_name']; ?>
-                                </a>
-                            </div>
-                            <?php
+                                <div
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                    <a class="!no-underline" href="../tag/<?php echo $tag['tag_name']; ?>">
+                                        <?php echo $tag['tag_name']; ?>
+                                    </a>
+                                </div>
+                                <?php
             }
         }
         ?>
-                </div>
-                <?php
-                $result2 = getBlogs($conn, $_GET['topic']);
+                    </div>
+                    <?php
+                    $result2 = getBlogs($conn, $_GET['topic']);
 
-                if (mysqli_num_rows($result2) > 0) {
-                    while ($row2 = mysqli_fetch_assoc($result2)) {
-                        echo $row2["hypertext"];
+                    if (mysqli_num_rows($result2) > 0) {
+                        while ($row2 = mysqli_fetch_assoc($result2)) {
+                            echo $row2["hypertext"];
+                        }
                     }
-                }
 
-                ?>
+                    ?>
+                </div>
             </div>
-        </div>
-    </body>
+        </body>
 
-    <script>
-        function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("block");
-        }
-        function openDropdown(event, dropdownID) {
-            let element = event.target;
-            while (element.nodeName !== "A") {
-                element = element.parentNode;
+        <script>
+            function toggleNavbar(collapseID) {
+                document.getElementById(collapseID).classList.toggle("hidden");
+                document.getElementById(collapseID).classList.toggle("block");
             }
-            document.getElementById(dropdownID).classList.toggle("hidden");
-            document.getElementById(dropdownID).classList.toggle("block");
-        }
+            function openDropdown(event, dropdownID) {
+                let element = event.target;
+                while (element.nodeName !== "A") {
+                    element = element.parentNode;
+                }
+                document.getElementById(dropdownID).classList.toggle("hidden");
+                document.getElementById(dropdownID).classList.toggle("block");
+            }
 
-    </script>
+        </script>
 
-    </html>
-    <?php
+        </html>
+
+        <?php
+    } else {
+        header('Location: ../404nf');
+        exit;
+    }
 } else {
     include('bloglist.php');
 }
