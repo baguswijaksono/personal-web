@@ -2,19 +2,16 @@
 include('../dbconfig.php');
 if (isset($_GET['project']) && !empty($_GET['project'])) {
     $project = $_GET['project'];
-    $result = getDocs($conn, $project)
-        ?>
-    <!DOCTYPE html>
-    <html lang=" en-US">
+    $result = getDocs($conn, $project);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <!DOCTYPE html>
+            <html lang=" en-US">
 
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <?php
-
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                ?>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta charset="utf-8">
                 <title>
                     <?php echo $row["docname"]; ?>
                 </title>
@@ -87,56 +84,61 @@ if (isset($_GET['project']) && !empty($_GET['project'])) {
                             <?php
                             $docs_id = $row["id"];
                             incrementViews($conn, $docs_id, 'doc');
-            }
+
         }
 
         $result = getdocsTags($conn, $docs_id);
         if ($result->num_rows > 0) {
             while ($tag = $result->fetch_assoc()) {
                 ?>
-                            <div
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                <a class="!no-underline" href="../tag/<?php echo $tag['tag_name']; ?>">
-                                    <?php echo $tag['tag_name']; ?>
-                                </a>
-                            </div>
-                            <?php
+                                <div
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                    <a class="!no-underline" href="../tag/<?php echo $tag['tag_name']; ?>">
+                                        <?php echo $tag['tag_name']; ?>
+                                    </a>
+                                </div>
+                                <?php
             }
         }
         ?>
-                </div>
-                <?php
+                    </div>
+                    <?php
 
-                $result2 = getDocs($conn, $project);
-                if (mysqli_num_rows($result2) > 0) {
-                    while ($row2 = mysqli_fetch_assoc($result2)) {
-                        echo $row2["hypertext"];
+                    $result2 = getDocs($conn, $project);
+                    if (mysqli_num_rows($result2) > 0) {
+                        while ($row2 = mysqli_fetch_assoc($result2)) {
+                            echo $row2["hypertext"];
+                        }
                     }
-                }
 
-                ?>
+                    ?>
+                </div>
             </div>
-        </div>
-    </body>
+        </body>
 
-    <script>
-        function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("block");
-        }
-        function openDropdown(event, dropdownID) {
-            let element = event.target;
-            while (element.nodeName !== "A") {
-                element = element.parentNode;
+        <script>
+            function toggleNavbar(collapseID) {
+                document.getElementById(collapseID).classList.toggle("hidden");
+                document.getElementById(collapseID).classList.toggle("block");
             }
-            document.getElementById(dropdownID).classList.toggle("hidden");
-            document.getElementById(dropdownID).classList.toggle("block");
-        }
+            function openDropdown(event, dropdownID) {
+                let element = event.target;
+                while (element.nodeName !== "A") {
+                    element = element.parentNode;
+                }
+                document.getElementById(dropdownID).classList.toggle("hidden");
+                document.getElementById(dropdownID).classList.toggle("block");
+            }
 
-    </script>
+        </script>
 
-    </html>
-    <?php
+        </html>
+        <?php
+    } else {
+        header('Location: ../404nf');
+        exit;
+
+    }
 } else {
     include('docslist.php');
 }
